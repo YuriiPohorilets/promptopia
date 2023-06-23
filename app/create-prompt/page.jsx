@@ -6,14 +6,14 @@ import { useRouter } from "next/navigation";
 import Form from "@components/Form";
 
 const CreatePrompt = () => {
-  const [submitting, setSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [post, setPost] = useState({ prompt: "", tag: "" });
   const router = useRouter();
   const { data: session } = useSession();
 
   const createPrompt = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
+    setIsSubmitting(true);
 
     try {
       const response = await fetch("/api/prompt/new", {
@@ -31,7 +31,7 @@ const CreatePrompt = () => {
     } catch (error) {
       console.log(error);
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -40,7 +40,7 @@ const CreatePrompt = () => {
       type="Create"
       post={post}
       setPost={setPost}
-      submitting={submitting}
+      submitting={isSubmitting}
       handleSubmit={createPrompt}
     />
   );
